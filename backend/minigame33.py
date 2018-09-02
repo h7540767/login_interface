@@ -8,6 +8,12 @@ app = Flask(__name__)
 db = pymysql.connect(host='localhost',user='root', password='MiniGame@33', port=3306, db='minigame')
 cursor = db.cursor()
 
+def hash(password):
+    md5 = hashlib.md5()
+    md5.update(password.encode('utf-8'))
+    return md5.hexdigest()
+    
+
 @app.route('/')
 @app.route('/index/')
 def index():
@@ -22,6 +28,7 @@ def signup():
         ret_json["ret"] = -1
         ret_json["msg"] = "param is none"
     else:
+        password = hash(password)
         sql = "select * from playerinfo where nickname = %s"
         cursor.execute(sql,(nickname))
         if (cursor.rowcount > 0):
@@ -51,6 +58,7 @@ def signin():
         ret_json["ret"] = -1
         ret_json["msg"] = "param is none"
     else:
+        password = hash(password)
         sql = "select * from playerinfo where nickname=%s"
         cursor.execute(sql,(nickname))
         if (cursor.rowcount == 0):
