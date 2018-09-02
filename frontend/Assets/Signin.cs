@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 public class Signin : MonoBehaviour
 {
-    private string url = "http://132.232.124.15:2333/index/";
+    private string url = "http://132.232.124.15:2333/signin/";
 
     // Use this for initialization
     void Start()
